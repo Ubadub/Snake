@@ -12,7 +12,7 @@
 class SnakeGame
 {
 public:
-    static const int DELAY = 250;
+    static const int DELAY = 100;
 
     SnakeGame();
     ~SnakeGame();
@@ -24,7 +24,7 @@ private:
     int score_;
     int time_;
 
-    bool checkUserInput();
+    bool checkUserInput(Snake::Direction &d);
 
     void gameOver();
 

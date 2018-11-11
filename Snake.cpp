@@ -4,7 +4,7 @@
 
 SDL_Color Snake::SNAKE_COLOR = {0x00, 0xFF, 0x00, SDL_ALPHA_OPAQUE}; // green
 
-Snake::Snake(int row, int col) : Snake(UP, row, col) {}
+Snake::Snake(int row, int col) : Snake(DIRECTION_UP, row, col) {}
 
 Snake::Snake(Snake::Direction d, int row, int col) :
 head_(new Block(row, col)),
@@ -103,8 +103,8 @@ void Snake::move()
 
 bool Snake::setDirectionIfPossible(Snake::Direction d)
 {
-    if ((direction_ == UP   && d == DOWN)  || (direction_ == DOWN  && d == UP)
-    ||  (direction_ == LEFT && d == RIGHT) || (direction_ == RIGHT && d == LEFT))
+    if ((direction_ == DIRECTION_UP   && d == DIRECTION_DOWN)  || (direction_ == DIRECTION_DOWN  && d == DIRECTION_UP)
+    ||  (direction_ == DIRECTION_LEFT && d == DIRECTION_RIGHT) || (direction_ == DIRECTION_RIGHT && d == DIRECTION_LEFT))
     {
         return false;
     }
@@ -134,16 +134,16 @@ std::pair<int, int> Snake::getNewRowAndColumn()
 
     switch (direction_)
     {
-        case UP:
+        case DIRECTION_UP:
             r -= 1;
             break;
-        case DOWN:
+        case DIRECTION_DOWN:
             r += 1;
             break;
-        case LEFT:
+        case DIRECTION_LEFT:
             c -= 1;
             break;
-        case RIGHT:
+        case DIRECTION_RIGHT:
             c += 1;
             break;
     }

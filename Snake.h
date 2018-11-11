@@ -12,10 +12,11 @@ public:
      */
     enum Direction
     {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
+        DIRECTION_NONE = -1,
+        DIRECTION_UP,
+        DIRECTION_DOWN,
+        DIRECTION_LEFT,
+        DIRECTION_RIGHT
     };
 
     Snake(int row, int col);

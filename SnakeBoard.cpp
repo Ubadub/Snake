@@ -1,7 +1,6 @@
 #include <iostream>
 #include <utility>
 
-#include "SnakeGame.h"
 #include "SnakeBoard.h"
 
 const SDL_Color SnakeBoard::FOOD_COLOR = {0xFF, 0xFF, 0x00, SDL_ALPHA_OPAQUE}; // yellow

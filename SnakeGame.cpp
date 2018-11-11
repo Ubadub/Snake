@@ -19,10 +19,15 @@ SnakeGame::~SnakeGame()
 
 void SnakeGame::loop()
 {
+    Snake::Direction d = Snake::DIRECTION_NONE;
     do
     {
         if (!paused_ && SDL_GetTicks() > time_ + DELAY)
         {
+            if (d != Snake::DIRECTION_NONE)
+            {
+                board_->setSnakeDirection(d);
+            }
             update();
             if (board_->isGameOver())
             {
@@ -30,10 +35,10 @@ void SnakeGame::loop()
             }
             time_ = SDL_GetTicks();
         }
-    } while(checkUserInput());
+    } while(checkUserInput(d));
 }
 
-bool SnakeGame::checkUserInput()
+bool SnakeGame::checkUserInput(Snake::Direction &d)
 {
     SDL_Event e;
     if (SDL_PollEvent(&e))
@@ -42,31 +47,32 @@ bool SnakeGame::checkUserInput()
         {
             case SDL_KEYDOWN:
             {
-                // If the game is paused, ignore all user input except unpause
-                if (paused_ && e.key.keysym.sym == SDLK_p)
+                if (!paused_)
                 {
-                    paused_ = false;
-                }
-                else if (!paused_)
-                {
+
                     switch (e.key.keysym.sym)
                     {
                         case SDLK_UP:
-                            board_->setSnakeDirection(Snake::UP);
+                            d = Snake::DIRECTION_UP;
                             break;
                         case SDLK_DOWN:
-                            board_->setSnakeDirection(Snake::DOWN);
+                            d = Snake::DIRECTION_DOWN;
                             break;
                         case SDLK_LEFT:
-                            board_->setSnakeDirection(Snake::LEFT);
+                            d = Snake::DIRECTION_LEFT;
                             break;
                         case SDLK_RIGHT:
-                            board_->setSnakeDirection(Snake::RIGHT);
+                            d = Snake::DIRECTION_RIGHT;
                             break;
                         case SDLK_p:
                             paused_ = true;
                             break;
                     }
+                }
+                // If the game is paused, ignore all user input except unpause
+                else
+                {
+                    paused_ = e.key.keysym.sym != SDLK_p;
                 }
             }
             break;
